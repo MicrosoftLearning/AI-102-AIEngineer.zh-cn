@@ -2,12 +2,12 @@
 lab:
   title: 使用认知服务容器
   module: Module 2 - Developing AI Apps with Cognitive Services
-ms.openlocfilehash: 3c9e51562e4fb93809855e3ae8707d6aeaf83c97
-ms.sourcegitcommit: e9fc70625e09e4f4585a08e1668597f5d82616a0
+ms.openlocfilehash: 244ab1ef3754e668d64996dece9711682651691d
+ms.sourcegitcommit: 29a684646784fe4f7370343b6c005728a953770d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/11/2022
-ms.locfileid: "141605462"
+ms.lasthandoff: 05/04/2022
+ms.locfileid: "144557839"
 ---
 # <a name="use-a-cognitive-services-container"></a>使用认知服务容器
 
@@ -52,7 +52,8 @@ ms.locfileid: "141605462"
         - 资源组：选择包含认知服务资源的资源组
         - **容器名称**：输入唯一名称
         - **区域**：选择任何可用区域
-        - **映像源**：Docker Hub 或其他注册表
+        - **映像源**：其他注册表
+        - **映像类型**：公有
         - **映像**：`mcr.microsoft.com/azure-cognitive-services/textanalytics/language:1.1.013570001-amd64`
         - **OS 类型**：Linux
         - **Size**：1 个 vCPU，4 GB 内存
@@ -64,7 +65,7 @@ ms.locfileid: "141605462"
         - **重启策略**：失败时
         - **环境变量**：
 
-            | 标记为安全 | 键 | Value |
+            | 标记为安全 | 密钥 | Value |
             | -------------- | --- | ----- |
             | 是 | `ApiKey` | 认知服务资源的任一密钥 |
             | 是 | `Billing` | 认知服务资源的终结点 URI |

@@ -2,16 +2,16 @@
 lab:
   title: 从表单中提取数据
   module: Module 11 - Reading Text in Images and Documents
-ms.openlocfilehash: 99d450eb777229f573de9a7231c773e3c103efd9
-ms.sourcegitcommit: 1807a2fd95d9818d27b8c34c0ad041d844eea806
+ms.openlocfilehash: 3439c9d2d53fd0461b2fe35b095ea86d5ed3abaa
+ms.sourcegitcommit: da2617566698e889ff53426e6ddb58f42ccf9504
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/08/2022
-ms.locfileid: "139548571"
+ms.lasthandoff: 05/05/2022
+ms.locfileid: "144776167"
 ---
 # <a name="extract-data-from-forms"></a>从表单中提取数据 
 
-假设某公司需要自动进行数据条目处理。 目前可能有一名员工人工读取采购订单并手动将数据输入数据库。 你希望构建一个模型，使用机器学习来读取表单和可用于自动更新数据库的程序结构化数据。
+假设公司当前要求员工手动购买订单表并将数据输入到数据库中。 他们希望利用 AI 服务改进数据输入过程。 你决定构建一个机器学习模型，该模型将读取表单并生成可用于自动更新数据库的结构化数据。
 
 **** 表单识别器是一项认知服务，它让用户能够生成自动化数据处理软件。 此软件可使用光学字符识别 (OCR) 从表单中提取文字、键值对和表。 表单识别器有用于识别发票、收据和名片的预制模型。 该服务还提供训练自定义模式的功能。 在本练习中，我们将重点关注生成自定义模型。
 
@@ -28,13 +28,13 @@ ms.locfileid: "139548571"
 
 ## <a name="create-a-form-recognizer-resource"></a>创建表单识别器资源
 
-要使用“表单识别器”服务，需在 Azure 订阅中创建“表单识别器”资源。 使用 Azure 门户创建资源。
+要使用表单识别器服务，需在 Azure 订阅中有“表单识别器”或“认知服务”资源。 使用 Azure 门户创建资源。
 
 1.  打开 Azure 门户 (`https://portal.azure.com`)，然后使用与你的 Azure 订阅关联的 Microsoft 帐户登录。
 
 2. 选择“&#65291;创建资源”按钮，搜索“表单识别器”，并使用以下设置创建“表单识别器”资源：
     - **订阅**：Azure 订阅
-    - 资源组：选择或创建一个资源组（如果你使用的是受限订阅，则可能无权创建新资源组，在此情况下，可使用一个已提供的资源组）
+    - 资源组：选择或创建一个资源组（如果使用受限制的订阅，你可能无权创建新的资源组 - 请使用提供的资源组）
     - **区域**：选择任何可用区域
     - **名称**：输入唯一名称
     - **定价层**：F0
@@ -47,13 +47,13 @@ ms.locfileid: "139548571"
 
 ![发票的图像。](../21-custom-form/sample-forms/Form_1.jpg)  
 
-你将使用此存储库中 21-custom-form/sample-forms 文件夹内的示例表单，它包含不使用标签训练模型和使用标签训练模型所需的所有文件。
+你将使用此存储库中 21-custom-form/sample-forms 文件夹内的示例表单，其中包含训练和测试模型所需的所有文件。
 
 1. 在 Visual Studio Code 中，在 21-custom-form 文件夹中展开 sample-forms 文件夹。 注意该文件夹中有以 .json 和 .jpg 结尾的文件 。
 
-    你将使用 .jpg 文件在不使用标签的情况下训练第一个模型。  
+    你将使用 .jpg 文件来训练模型。  
 
-    稍后，你将使用以 .json 和 .jpg 结尾的文件，结合使用标签创建第二个模型 。 已生成 .json 文件，其中包含标签信息。 若要使用标签训练，你需要在 blob 存储容器中添加标签信息文件和表单。 
+    已生成 .json 文件，其中包含标签信息。 文件将连同表单一起上传到 blob 存储容器中。 
 
 2. 返回到 Azure 门户 ([https://portal.azure.com](https://portal.azure.com))。
 
@@ -106,16 +106,20 @@ setup
 
 15. 在 Azure 门户中，刷新资源组并验证它包含刚刚创建的 Azure 存储帐户。 打开存储帐户，并在左侧窗格中选择“存储资源管理器(预览)”。 然后在存储资源管理器中，展开“BLOB 容器”并选择“sampleforms”容器以验证已从本地 21-custom-form/sample-forms 文件夹上传文件  。
 
-## <a name="train-a-model-without-labels"></a>不使用标签训练模型
+## <a name="train-a-model-using-the-form-recognizer-sdk"></a>使用表单识别器 SDK 训练模型
 
-你将使用表单识别器 SDK 来训练和测试自定义模型。  
+现在，你将使用 .jpg 和 .json 文件训练模型 。
 
-> **注意**：在此练习中，可以选择在 C# 或 Python SDK 中使用 API 。 在下面的步骤中，请执行适用于你的语言首选项的操作。
+1. 在 Visual Studio Code 中，在 21-custom-form/sample-forms文件夹中打开 fields.json，并查看它包含的 JSON 文档。  此文件定义了你要训练模型从表单中提取的字段。
+2. 打开 Form_1.jpg.labels.json 并查看它包含的 JSON。 此文件标识了 Form_1.jpg 训练文档中的命名字段的位置和值。
+3. 打开 Form_1.jpg.ocr.json 并查看它包含的 JSON。 此文件包含 Form_1.jpg 的文本布局（包括表单中所有文本区域的位置）的 JSON 表示形式。
 
-1. 在 Visual Studio Code 中，根据你的语言首选项，在 21-custom-form 文件夹中展开 C-Sharp 或 Python 文件夹。
-2. 右键单击 train-model 文件夹并打开集成终端。
+    *在此练习中，我们为你提供了字段信息文件。对于你自己的项目，可以使用[表单识别器工作室](https://formrecognizer.appliedai.azure.com/studio)创建这些文件。使用该工具时，将自动创建字段信息文件并存储到连接的存储帐户。*
 
-3. 运行适用于你的语言首选项的命令，以安装“表单识别器”包。
+4. 在 Visual Studio Code 中，根据你的语言首选项，在 21-custom-form 文件夹中展开 C-Sharp 或 Python 文件夹。
+5. 右键单击 train-model 文件夹并打开集成终端。
+
+6. 运行适用于你的语言首选项的命令，以安装“表单识别器”包。
 
 **C#**
 
@@ -129,16 +133,16 @@ dotnet add package Azure.AI.FormRecognizer --version 3.0.0
 pip install azure-ai-formrecognizer==3.0.0
 ```
 
-3. 查看 train-model 文件夹的内容，注意它包含配置设置的文件：
+7. 查看 train-model 文件夹的内容，注意它包含配置设置的文件：
     - **C#** ：appsettings.json
     - **Python**：.env
 
-4. 编辑配置文件，修改设置以反映以下信息：
+8. 编辑配置文件，修改设置以反映以下信息：
     - 你的表单识别器资源的终结点。
     - 你的表单识别器资源的密钥。
     - 你的 blob 容器的 SAS URI。
 
-5. 注意 train-model 文件夹包含客户端应用程序的代码文件：
+9. 注意 train-model 文件夹包含客户端应用程序的代码文件：
 
     - **C#** ：Program.cs
     - **Python**：train-model.py
@@ -147,9 +151,13 @@ pip install azure-ai-formrecognizer==3.0.0
     - 已导入你安装的包中的命名空间
     - Main 函数会检索配置设置，并使用密钥和终结点来创建经身份验证的客户端。 
     - 代码使用训练客户端，使用你的 blob 存储容器中的图像来训练模型，需使用你生成的 SAS URI 访问该存储容器。
-    - 使用指示<u>不</u>应使用训练标签的参数来执行训练。 表单识别器使用不受监督的技术从表单图像提取字段。
 
-6. 返回 train-model 文件夹的集成终端，并输入以下命令以运行程序：
+10. 在 train-model 文件夹中，打开训练应用程序的代码文件：
+
+    - **C#** ：Program.cs
+    - **Python**：train-model.py
+
+11. 返回 train-model 文件夹的集成终端，并输入以下命令以运行程序：
 
 **C#**
 
@@ -163,16 +171,15 @@ dotnet run
 python train-model.py
 ```
 
-7. 等待程序结束。 然后在终端中查看模型输出并找到模型 ID。 下一节程序中需要用到此值，因此请勿关闭终端。
+12. 等待程序结束，然后查看模型输出。
+13. 记下终端输出中的模型 ID。 你将在实验室的下一部分用到它。 
 
-## <a name="test-the-model-created-without-labels"></a>测试未使用标签创建的模型
-
-现在可以使用经训练的模型。 注意你如何从来自存储容器 URI 的文件训练了模型。 还可使用本地文件训练模型。 类似地，可以使用来自 URI 或本地文件的表单来测试模型。 你将使用本地文件测试表单模型。
-
-获得模型 ID 后，可从客户端应用程序使用它。 同样，可以选择使用 C# 或 Python 。
+## <a name="test-your-custom-form-recognizer-model"></a>测试自定义的表单识别器模型 
 
 1. 在 21-custom-form 文件夹中，在你的语言首选项（C-Sharp 或 Python）的子文件夹中，展开 test-model 文件夹   。
-2. 右键单击 test-model 文件夹并打开集成终端。 现在，你拥有（至少）两个 cmd 终端，可使用“终端”窗格中的下拉列表在其间切换。
+
+2. 右键单击 test-model 文件夹并选择“打开集成终端”。 
+
 3. 在 test-model 文件夹的终端中，运行适用于你的语言首选项的命令，以安装“表单识别器”包。
 
 **C#**
@@ -192,13 +199,14 @@ pip install azure-ai-formrecognizer==3.0.0
 4. 在 test-model 文件夹中，编辑配置文件（appsettings.json 或 .env，具体取决于你的语言首选项）以添加以下值  ：
     - 你的表单识别器终结点。
     - 你的表单识别器密钥。
-    - 训练模型时生成的模型 ID（可将终端切换回 train-model 文件夹的 cmd 控制台）。 
+    - 训练模型时生成的模型 ID（可将终端切换回 train-model 文件夹的 cmd 控制台）。  单击“保存”以保存更改。
 
 5. 在 test-model 文件夹中，打开客户端应用程序的代码文件（对 C# 而言是 Program.cs，对 Python 而言是 test-model.py）并查看它包含的代码，注意以下详细信息 ：
     - 已导入你安装的包中的命名空间
     - Main 函数会检索配置设置，并使用密钥和终结点来创建经身份验证的客户端。 
     - 然后使用该客户端从 test1.jpg 图像中提取表单域或值。
     
+
 6. 返回 test-model 文件夹的集成终端，并输入以下命令以运行程序：
 
 **C#**
@@ -212,80 +220,8 @@ dotnet run
 ```
 python test-model.py
 ```
-
-7. 查看输出，并注意预测置信度分数。 注意输出提供 field-1、field-2 等字段名称。 
-
-## <a name="train-a-model-with-labels-using-the-client-library"></a>使用客户端库，使用标签训练模型
-
-假设你使用发票表单训练模型后，想要了解使用带标签的数据训练的模型的性能。 不使用标签训练模型时，你只使用了来自 Azure blob 容器的 .jpg 表单。 现在，你将使用 .jpg 和 .json 文件训练模型 。
-
-1. 在 Visual Studio Code 中，在 21-custom-form/sample-forms文件夹中打开 fields.json，并查看它包含的 JSON 文档。  此文件定义了你要训练模型从表单中提取的字段。
-2. 打开 Form_1.jpg.labels.json 并查看它包含的 JSON。 此文件标识了 Form_1.jpg 训练文档中的命名字段的位置和值。
-3. 打开 Form_1.jpg.ocr.json 并查看它包含的 JSON。 此文件包含 Form_1.jpg 的文本布局（包括表单中所有文本区域的位置）的 JSON 表示形式。
-
-    *在此练习中，我们为你提供了字段信息文件。对于你自己的项目，可以使用[示例标签工具](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/label-tool)创建这些文件。使用该工具时，将自动创建字段信息文件并存储到连接的存储帐户。*
-
-4. 在 train-model 文件夹中，打开训练应用程序的代码文件：
-
-    - **C#** ：Program.cs
-    - **Python**：train-model.py
-
-5. 在 Main 函数中，找到注释“Train model”，进行如下所示的修改以更改训练过程，以便使用标签： 
-
-**C#**
-
-```C#
-// Train model 
-CustomFormModel model = await trainingClient
-.StartTrainingAsync(new Uri(trainingStorageUri), useTrainingLabels: true)
-.WaitForCompletionAsync();
-```
-
-**Python**
-
-```Python
-# Train model 
-poller = form_training_client.begin_training(trainingDataUrl, use_training_labels=True)
-model = poller.result()
-```
-
-6. 返回 train-model 文件夹的集成终端，并输入以下命令以运行程序：
-
-**C#**
-
-```
-dotnet run
-```
-
-**Python**
-
-```
-python train-model.py
-```
-
-10. 等待程序结束，然后查看模型输出。
-11. 记下终端输出中的新模型 ID。 
-
-## <a name="test-the-model-created-with-labels"></a>测试使用标签创建的模型
-
-1. 在 test-model 文件夹中，编辑配置文件（appsettings.json 或 .env，具体取决于你的语言首选项）并更新它以反映新模型 ID  。 保存所做更改。
-2. 返回 test-model 文件夹的集成终端，并输入以下命令以运行程序：
-
-**C#**
-
-```
-dotnet run
-```
-
-**Python**
-
-```
-python test-model.py
-```
     
-3. 查看输出，并观察这一现象：使用标签训练的模型的输出提供“CompanyPhoneNumber”和“DatedAs”等字段名称，与不使用标签训练的模型的输出不同（它生成了 field-1、field-2 等输出）。  
-
-虽然使用标签训练模型的代码和不使用标签训练模型的代码差异可能不大，但从二者中选择其一确实会改变项目计划需求  。 若要使用标签进行训练，则需[创建带标签的文件](https://docs.microsoft.com/azure/applied-ai-services/form-recognizer/quickstarts/try-sample-label-tool)。 训练过程的选择还会产生不同的模型，进而会根据模型返回的字段和返回结果的置信度影响下游过程。 
+7. 查看输出并观察模型的输出如何提供“CompanyPhoneNumber”和“DatedAs”等字段名称。   
 
 ## <a name="more-information"></a>详细信息
 
