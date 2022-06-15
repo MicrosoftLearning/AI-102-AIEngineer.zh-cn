@@ -2,12 +2,12 @@
 lab:
   title: 创建问题解答解决方案
   module: Module 6 - Building a QnA Solution
-ms.openlocfilehash: 3fa849480f4b6f94aea758159de126aeb8bfb513
-ms.sourcegitcommit: 47e8de0c2ea379aac8bec96b7c599ffb74d1eee9
+ms.openlocfilehash: 0a71dc2c0185c51d8ccf390afd780dd914366be0
+ms.sourcegitcommit: 45e075a4b45a914d378900b4c00451a530d813de
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/22/2022
-ms.locfileid: "139132294"
+ms.lasthandoff: 05/26/2022
+ms.locfileid: "145892508"
 ---
 # <a name="create-a-question-answering-solution"></a>创建问题解答解决方案
 
@@ -89,7 +89,7 @@ ms.locfileid: "139132294"
 2. 在知识库中，选择“&#65291; 添加问题集”。
 3. 在“问题”框中，键入 `What is Microsoft certification?` 并按 Enter******。
 4. 选择“&#65291; 添加替代表述”，键入 `How can I demonstrate my Microsoft technology skills?` 并按 Enter 。
-5. 在“答案”框中，键入 `The Microsoft Certified Professional program enables you to validate and prove your skills with Microsoft technologies.` 并按 Enter，然后单击“提交”以将问题（包括替代表述）和答案提交至知识库  。
+5. 在“答案”框中，键入 `The Microsoft Certified Professional program enables you to validate and prove your skills with Microsoft technologies.`，然后按“提交”以将问题（包括替代表述）和答案提交至知识库 。
 
     在某些情况下，让用户能够跟进答案以创建多回合对话是有意义的，这让用户能够以迭代方式细化问题，从而得到他们所需的答案。
 

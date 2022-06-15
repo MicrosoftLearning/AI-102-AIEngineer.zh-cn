@@ -2,12 +2,12 @@
 lab:
   title: 管理认知服务安全
   module: Module 2 - Developing AI Apps with Cognitive Services
-ms.openlocfilehash: dcab47cf20f54d6bcbed9a3e40081b703fc2d5ba
-ms.sourcegitcommit: acbffd6019fe2f1a6ea70870cf7411025c156ef8
+ms.openlocfilehash: 9c8de44265ffa0846b6860fd7d416bb3be547ed9
+ms.sourcegitcommit: 5ffc20f6a590fe643c2b695b8dc04589411be36e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/12/2022
-ms.locfileid: "137819462"
+ms.lasthandoff: 05/31/2022
+ms.locfileid: "145951178"
 ---
 # <a name="manage-cognitive-services-security"></a>管理认知服务安全
 
@@ -33,11 +33,11 @@ ms.locfileid: "137819462"
 1. 打开 Azure 门户 (`https://portal.azure.com`)，然后使用与你的 Azure 订阅关联的 Microsoft 帐户登录。
 2. 选择“&#65291;创建资源”按钮，搜索“认知服务”，并使用以下设置创建一个认知服务资源：
     - **订阅**：Azure 订阅
-    - 资源组：选择或创建一个资源组（如果你使用的是受限订阅，则可能无权创建新资源组，在此情况下，可使用一个已提供的资源组）
+    - 资源组：选择或创建一个资源组（如果使用受限制的订阅，你可能无权创建新的资源组 - 请使用提供的资源组）
     - **区域**：选择任何可用区域
     - **名称**：输入唯一名称
-    - **定价层**：标准 S0
-3. 选中所需复选框并创建资源。
+    - 定价层：标准版 S0
+3. 选中所需的复选框并创建资源。
 4. 等待部署完成，然后查看部署详细信息。
 
 ## <a name="manage-authentication-keys"></a>管理身份验证密钥
@@ -228,7 +228,7 @@ ms.locfileid: "137819462"
     python keyvault-client.py
     ```
 
-6. 系统提示时，输入一些文本并查看服务检测到的语言。 例如，尝试输入“Hello”、“Bonjour”和“Hola”。
+6. 系统提示时，输入一些文本并查看服务检测到的语言。 例如，尝试输入“Hello”、“Bonjour”和“Gracias”。
 7. 测试应用程序后，输入“quit”以停止程序。
 
 ## <a name="more-information"></a>详细信息

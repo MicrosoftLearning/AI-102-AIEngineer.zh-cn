@@ -2,12 +2,12 @@
 lab:
   title: 认知服务入门指南
   module: Module 2 - Developing AI Apps with Cognitive Services
-ms.openlocfilehash: 4baba38b03c6d7bb5fe04fa5e73bb606e970550b
-ms.sourcegitcommit: acbffd6019fe2f1a6ea70870cf7411025c156ef8
+ms.openlocfilehash: a05256a78dee051041320aa3556a43add5596ce9
+ms.sourcegitcommit: 5ffc20f6a590fe643c2b695b8dc04589411be36e
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/12/2022
-ms.locfileid: "137819491"
+ms.lasthandoff: 05/31/2022
+ms.locfileid: "145951186"
 ---
 # <a name="get-started-with-cognitive-services"></a>认知服务入门指南
 
@@ -31,11 +31,11 @@ Azure 认知服务是基于云的服务，其中封装了可合并到应用程�
 1. 打开 Azure 门户 (`https://portal.azure.com`)，然后使用与你的 Azure 订阅关联的 Microsoft 帐户登录。
 2. 选择“&#65291;创建资源”按钮，搜索“认知服务”，并使用以下设置创建一个认知服务资源：
     - **订阅**：Azure 订阅
-    - 资源组：选择或创建一个资源组（如果你使用的是受限订阅，则可能无权创建新资源组，在此情况下，可使用一个已提供的资源组）
+    - 资源组：选择或创建一个资源组（如果使用受限制的订阅，你可能无权创建新的资源组 - 请使用提供的资源组）
     - **区域**：选择任何可用区域
     - **名称**：输入唯一名称
-    - **定价层**：标准 S0
-3. 选中所需复选框并创建资源。
+    - 定价层：标准版 S0
+3. 选中所需的复选框并创建资源。
 4. 等待部署完成，然后查看部署详细信息。
 5. 前往该资源并查看其“密钥和终结点”页面。 此页面中包含连接资源并在开发的应用程序中使用该资源所需的信息。 尤其是在下列情况下：
     - 客户端应用程序可向其发送请求的 HTTP 终结点。
@@ -54,7 +54,7 @@ Azure 认知服务是基于云的服务，其中封装了可合并到应用程�
     - **Python**：.env
 
     打开配置文件，然后更新其中包含的配置值，以反映认知服务资源的终结点和身份验证密钥。 保存更改。
-4. 请注意，rest-client 文件夹中包含客户端应用程序的代码文件：
+3. 请注意，rest-client 文件夹中包含客户端应用程序的代码文件：
 
     - **C#** ：Program.cs
     - **Python**：rest-client.py
@@ -66,7 +66,7 @@ Azure 认知服务是基于云的服务，其中封装了可合并到应用程�
     - 发送到 API 的请求包含含输入数据的 JSON 对象（在本例中是一组 document 对象，每个 document 对象都具有 id 和 text）  。
     - 服务密钥附在请求标头中，用于对客户端应用程序进行身份验证。
     - 来自服务的响应是 JSON 对象，客户端应用程序可对其进行解析。
-5. 右键单击 rest-client 文件夹，并打开集成终端。 然后，输入以下语言特定的命令来运行程序：
+4. 右键单击 rest-client 文件夹，并打开集成终端。 然后，输入以下语言特定的命令来运行程序：
 
     **C#**
 
@@ -80,8 +80,8 @@ Azure 认知服务是基于云的服务，其中封装了可合并到应用程�
     python rest-client.py
     ```
 
-6. 系统提示时，输入一些文本并查看服务检测到的语言，返回的 JSON 响应中将包含该语言的信息。 例如，尝试输入“Hello”、“Bonjour”和“Hola”。
-7. 测试应用程序后，输入“quit”以停止程序。
+5. 系统提示时，输入一些文本并查看服务检测到的语言，返回的 JSON 响应中将包含该语言的信息。 例如，尝试输入“Hello”、“Bonjour”和“Gracias”。
+6. 测试应用程序后，输入“quit”以停止程序。
 
 ## <a name="use-an-sdk"></a>使用 SDK
 

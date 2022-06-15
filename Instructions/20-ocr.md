@@ -2,12 +2,12 @@
 lab:
   title: 读取图像中的文本
   module: Module 11 - Reading Text in Images and Documents
-ms.openlocfilehash: 0dc45d60e307769ebfde165201b97c4a3ff49675
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: 1199e4e4f44a98fc5f900fa1ad021384b56f0c2b
+ms.sourcegitcommit: e242452e8125a2622093980048f1e2cacb8b893d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "137819492"
+ms.lasthandoff: 05/25/2022
+ms.locfileid: "145757486"
 ---
 # <a name="read-text-in-images"></a>读取图像中的文本
 
@@ -34,8 +34,8 @@ ms.locfileid: "137819492"
     - 资源组：选择或创建一个资源组（如果使用受限制的订阅，你可能无权创建新的资源组 - 请使用提供的资源组）
     - **区域**：选择任何可用区域
     - **名称**：输入唯一名称
-    - **定价层**：标准 S0
-3. 选中所需复选框并创建资源。
+    - 定价层：标准版 S0
+3. 选中所需的复选框并创建资源。
 4. 等待部署完成，然后查看部署详细信息。
 5. 部署资源后，转到该资源并查看其“密钥和终结点”页面。 你将在下一个过程中用到此页面中的终结点和其中一个密钥。
 
@@ -213,7 +213,7 @@ python read-text.py
 
 ## <a name="use-the-read-api"></a>使用读取 API
 
-读取 API 使用比 OCR API 更新的文本识别模型，并且对于包含大量文本的大型图像效果更佳。 它还支持从 .pdf 文件中提取文本，并且可识别印刷体文本（多种语言）和手写文本（英语）。
+读取 API 使用比 OCR API 更新的文本识别模型，并且对于包含大量文本的大型图像效果更佳。 它还支持从 pdf 文件中提取文本，并且可识别多种语言的印刷体文本和手写文本。
 
 读取 API 使用异步操作模型，在该模型中，在提交开始文本识别的请求后，即可使用请求返回的操作 ID 来检查进度和检索结果。
 
