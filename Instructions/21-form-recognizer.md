@@ -2,12 +2,12 @@
 lab:
   title: 从表单中提取数据
   module: Module 11 - Reading Text in Images and Documents
-ms.openlocfilehash: 3439c9d2d53fd0461b2fe35b095ea86d5ed3abaa
-ms.sourcegitcommit: da2617566698e889ff53426e6ddb58f42ccf9504
+ms.openlocfilehash: 540fdc49b9efcf335d43cdd7a6db405c255cd058
+ms.sourcegitcommit: de1f38bbe53ec209b42cd89516813773e2f3479b
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/05/2022
-ms.locfileid: "144776167"
+ms.lasthandoff: 05/17/2022
+ms.locfileid: "145040700"
 ---
 # <a name="extract-data-from-forms"></a>从表单中提取数据 
 
@@ -114,7 +114,7 @@ setup
 2. 打开 Form_1.jpg.labels.json 并查看它包含的 JSON。 此文件标识了 Form_1.jpg 训练文档中的命名字段的位置和值。
 3. 打开 Form_1.jpg.ocr.json 并查看它包含的 JSON。 此文件包含 Form_1.jpg 的文本布局（包括表单中所有文本区域的位置）的 JSON 表示形式。
 
-    *在此练习中，我们为你提供了字段信息文件。对于你自己的项目，可以使用[表单识别器工作室](https://formrecognizer.appliedai.azure.com/studio)创建这些文件。使用该工具时，将自动创建字段信息文件并存储到连接的存储帐户。*
+    *在此练习中，我们为你提供了字段信息文件。对于你自己的项目，可以使用 [表单识别器工作室](https://formrecognizer.appliedai.azure.com/studio)创建这些文件。使用该工具时，将自动创建字段信息文件并存储到连接的存储帐户。*
 
 4. 在 Visual Studio Code 中，根据你的语言首选项，在 21-custom-form 文件夹中展开 C-Sharp 或 Python 文件夹。
 5. 右键单击 train-model 文件夹并打开集成终端。
@@ -196,18 +196,32 @@ pip install azure-ai-formrecognizer==3.0.0
 
 如果你之前使用 pip 将该包安装到 Python 环境中，则此步骤并非必需，但确定已安装它没有坏处。
 
-4. 在 test-model 文件夹中，编辑配置文件（appsettings.json 或 .env，具体取决于你的语言首选项）以添加以下值  ：
+4. 在 test-model 文件夹的同一终端中，安装 Tabulate 库。 这将在表中提供输出：
+
+**C#**
+
+```
+Install-Package Tabulate.NET -Version 1.0.5
+```
+
+**Python**
+
+```
+pip install tabulate
+```
+
+5. 在 test-model 文件夹中，编辑配置文件（appsettings.json 或 .env，具体取决于你的语言首选项）以添加以下值  ：
     - 你的表单识别器终结点。
     - 你的表单识别器密钥。
     - 训练模型时生成的模型 ID（可将终端切换回 train-model 文件夹的 cmd 控制台）。  单击“保存”以保存更改。
 
-5. 在 test-model 文件夹中，打开客户端应用程序的代码文件（对 C# 而言是 Program.cs，对 Python 而言是 test-model.py）并查看它包含的代码，注意以下详细信息 ：
+6. 在 test-model 文件夹中，打开客户端应用程序的代码文件（对 C# 而言是 Program.cs，对 Python 而言是 test-model.py）并查看它包含的代码，注意以下详细信息 ：
     - 已导入你安装的包中的命名空间
     - Main 函数会检索配置设置，并使用密钥和终结点来创建经身份验证的客户端。 
     - 然后使用该客户端从 test1.jpg 图像中提取表单域或值。
     
 
-6. 返回 test-model 文件夹的集成终端，并输入以下命令以运行程序：
+7. 返回 test-model 文件夹的集成终端，并输入以下命令以运行程序：
 
 **C#**
 
@@ -221,7 +235,7 @@ dotnet run
 python test-model.py
 ```
     
-7. 查看输出并观察模型的输出如何提供“CompanyPhoneNumber”和“DatedAs”等字段名称。   
+8. 查看输出并观察模型的输出如何提供“CompanyPhoneNumber”和“DatedAs”等字段名称。   
 
 ## <a name="more-information"></a>详细信息
 
