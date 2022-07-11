@@ -2,12 +2,12 @@
 lab:
   title: 使用 Bot Framework SDK 创建机器人
   module: Module 7 - Conversational AI and the Azure Bot Service
-ms.openlocfilehash: 7f2d78bec2ee9fab7bf5fad9ec9ef8ebc76b7fba
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: ab51a1f11f4eee99838634d83b5d9261a8c20ecb
+ms.sourcegitcommit: 480c5898009ea964025fdecb57900aefeeac81fd
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "137819419"
+ms.lasthandoff: 07/07/2022
+ms.locfileid: "147019880"
 ---
 # <a name="create-a-bot-with-the-bot-framework-sdk"></a>使用 Bot Framework SDK 创建机器人
 
@@ -27,6 +27,8 @@ ms.locfileid: "137819419"
 
 1. 启动 Bot Framework Emulator，如果系统提示你安装更新，请为当前登录的用户完成该操作。 如果系统没有自动发出提示，请使用“帮助”菜单上的“检查更新”选项来检查更新 。
 2. 安装任意可用更新后，关闭 Bot Framework Emulator，直到下次需要它时再打开。
+
+> **重要说明**：有时更新将无法下载，我们正在调查此问题。 如果在尝试更新的几分钟内没有取得任何进展，则可以关闭下载并使用当前安装的模拟器版本。
 
 ### <a name="clone-the-repository-for-this-course"></a>克隆本课程的存储库
 
