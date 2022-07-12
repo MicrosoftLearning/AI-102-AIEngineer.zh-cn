@@ -2,16 +2,18 @@
 lab:
   title: 检测、分析和识别人脸
   module: Module 10 - Detecting, Analyzing, and Recognizing Faces
-ms.openlocfilehash: b9565f41eb67b916278508c729860a3471a9e0bd
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: 29b0544e4f31f6e85eeba5cd8fb42951ca1334a9
+ms.sourcegitcommit: 7191e53bc33cda92e710d957dde4478ee2496660
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "137819454"
+ms.lasthandoff: 07/09/2022
+ms.locfileid: "147041653"
 ---
 # <a name="detect-analyze-and-recognize-faces"></a>检测、分析和识别人脸
 
 检测、分析和识别人脸的能力是一项核心 AI 功能。 在此练习中，你将探索两个可用于处理图像中的人脸的 Azure 认知服务：计算机视觉服务和人脸服务。
+
+> **注意**：从 2022 年 6 月 21 日开始，返回个人身份信息的认知服务的功能仅限于被授予[有限访问权限](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access)的客户。 此外，推断情绪状态的功能不再可用。 这些限制可能会影响本实验室练习。 我们正在努力解决此问题，但与此同时，执行以下步骤时可能会遇到一些错误；对此我们深表歉意。 有关 Microsoft 所做的更改的更多详细信息，以及原因 - 请参阅[负责任 AI 投资和面部识别防护措施](https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/)。
 
 ## <a name="clone-the-repository-for-this-course"></a>克隆本课程的存储库
 
@@ -34,8 +36,8 @@ ms.locfileid: "137819454"
     - 资源组：选择或创建一个资源组（如果你使用的是受限订阅，则可能无权创建新资源组，在此情况下，可使用一个已提供的资源组）
     - **区域**：选择任何可用区域
     - **名称**：输入唯一名称
-    - **定价层**：标准 S0
-3. 选中所需复选框并创建资源。
+    - 定价层：标准版 S0
+3. 选中所需的复选框并创建资源。
 4. 等待部署完成，然后查看部署详细信息。
 5. 部署资源后，转到该资源并查看其“密钥和终结点”页面。 你将在下一个过程中用到此页面中的终结点和其中一个密钥。
 
@@ -171,7 +173,7 @@ using (var imageData = File.OpenRead(imageFile))
             var r = face.FaceRectangle;
             Rectangle rect = new Rectangle(r.Left, r.Top, r.Width, r.Height);
             graphics.DrawRectangle(pen, rect);
-            string annotation = $"Person aged approximately {face.Age}";
+            string annotation = $"Person at approximately {face.Left}, {face.Top}";
             graphics.DrawString(annotation,font,brush,r.Left, r.Top);
         }
 
@@ -207,7 +209,7 @@ with open(image_file, mode="rb") as image_data:
             bounding_box = ((r.left, r.top), (r.left + r.width, r.top + r.height))
             draw = ImageDraw.Draw(image)
             draw.rectangle(bounding_box, outline=color, width=5)
-            annotation = 'Person aged approximately {}'.format(face.age)
+            annotation = 'Person at approximately {}, {}'.format(r.left, r.top)
             plt.annotate(annotation,(r.left, r.top), backgroundcolor=color)
 
         # Save annotated image
@@ -233,7 +235,7 @@ with open(image_file, mode="rb") as image_data:
     ```
 
 6. 查看输出，它应该会指出检测到的人脸数。
-7. 查看在代码文件所在的同一文件夹中生成的 detected_faces.jpg 文件，以查看带有批注的人脸。 本例的代码使用人脸特征来估计图像中每个人的年龄，并使用边界框坐标来绘制框住每张人脸的矩形。
+7. 查看在代码文件所在的同一文件夹中生成的 detected_faces.jpg 文件，以查看带有批注的人脸。 本例的代码使用人脸特征来标记框左上角的位置，并使用边界框坐标来绘制框住每张人脸的矩形。
 
 ## <a name="prepare-to-use-the-face-sdk"></a>准备使用人脸 SDK
 
@@ -309,7 +311,7 @@ with open(image_file, mode="rb") as image_data:
 
 ## <a name="detect-and-analyze-faces"></a>检测和分析人脸
 
-人脸服务最基本的功能之一是检测图像中的人脸并确定其特征（例如年龄、情绪表达、头发颜色以及是否佩戴眼镜等等）。
+人脸服务最基本的功能之一是检测图像中的人脸并确定其特征（例如头部姿态、模糊、是否佩戴眼镜等等）。
 
 1. 在应用程序的代码文件中，在 Main 函数中检查用户选择菜单选项 1 时运行的代码。 此代码会调用 DetectFaces 函数并传递图像文件的路径。
 2. 在代码文件中查找 DetectFaces 函数，并在注释“指定要检索的面部特征”下添加以下代码：
@@ -320,8 +322,8 @@ with open(image_file, mode="rb") as image_data:
     // Specify facial features to be retrieved
     List<FaceAttributeType?> features = new List<FaceAttributeType?>
     {
-        FaceAttributeType.Age,
-        FaceAttributeType.Emotion,
+        FaceAttributeType.Occlusion,
+        FaceAttributeType.Blur,
         FaceAttributeType.Glasses
     };
     ```
@@ -330,8 +332,8 @@ with open(image_file, mode="rb") as image_data:
 
     ```Python
     # Specify facial features to be retrieved
-    features = [FaceAttributeType.age,
-                FaceAttributeType.emotion,
+    features = [FaceAttributeType.occlusion,
+                FaceAttributeType.blur,
                 FaceAttributeType.glasses]
     ```
 
@@ -361,15 +363,11 @@ using (var imageData = File.OpenRead(imageFile))
         {
             // Get face properties
             Console.WriteLine($"\nFace ID: {face.FaceId}");
-            Console.WriteLine($" - Age: {face.FaceAttributes.Age}");
-            Console.WriteLine($" - Emotions:");
-            foreach (var emotion in face.FaceAttributes.Emotion.ToRankedList())
-            {
-                Console.WriteLine($"   - {emotion}");
-            }
-
+            Console.WriteLine($" - Mouth Occluded: {face.FaceAttributes.Occlusion.MouthOccluded}");
+            Console.WriteLine($" - Eye Occluded: {face.FaceAttributes.Occlusion.EyeOccluded}");
+            Console.WriteLine($" - Blur: {face.FaceAttributes.Blur.BlurLevel}");
             Console.WriteLine($" - Glasses: {face.FaceAttributes.Glasses}");
-
+            
             // Draw and annotate face
             var r = face.FaceRectangle;
             Rectangle rect = new Rectangle(r.Left, r.Top, r.Width, r.Height);
@@ -410,14 +408,16 @@ with open(image_file, mode="rb") as image_data:
             # Get face properties
             print('\nFace ID: {}'.format(face.face_id))
             detected_attributes = face.face_attributes.as_dict()
-            age = 'age unknown' if 'age' not in detected_attributes.keys() else int(detected_attributes['age'])
-            print(' - Age: {}'.format(age))
+            if 'blur' in detected_attributes:
+                print(' - Blur:')
+                for blur_name in detected_attributes['blur']:
+                    print('   - {}: {}'.format(blur_name, detected_attributes['blur'][blur_name]))
+                    
+            if 'occlusion' in detected_attributes:
+                print(' - Occlusion:')
+                for occlusion_name in detected_attributes['occlusion']:
+                    print('   - {}: {}'.format(occlusion_name, detected_attributes['occlusion'][occlusion_name]))
 
-            if 'emotion' in detected_attributes:
-                print(' - Emotions:')
-                for emotion_name in detected_attributes['emotion']:
-                    print('   - {}: {}'.format(emotion_name, detected_attributes['emotion'][emotion_name]))
-            
             if 'glasses' in detected_attributes:
                 print(' - Glasses:{}'.format(detected_attributes['glasses']))
 

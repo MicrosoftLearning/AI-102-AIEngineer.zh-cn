@@ -2,16 +2,18 @@
 lab:
   title: 使用视频分析器分析视频
   module: Module 8 - Getting Started with Computer Vision
-ms.openlocfilehash: cd67c472b5ee15efce232483afc8aeeac552b50c
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: ec23e53f363ed7c7df8fd598cfd1fc8807712f05
+ms.sourcegitcommit: 7191e53bc33cda92e710d957dde4478ee2496660
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "137819364"
+ms.lasthandoff: 07/09/2022
+ms.locfileid: "147041671"
 ---
 # <a name="analyze-video-with-video-analyzer"></a>使用视频分析器分析视频
 
 当今创建和使用的数据大都是视频格式数据。 媒体视频分析器是一项 AI 助力的服务，可用于索引视频并从中提取见解。
+
+> **注意**：从 2022 年 6 月 21 日开始，返回个人身份信息的认知服务的功能仅限于被授予[有限访问权限](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access)的客户。 此外，推断情绪状态的功能不再可用。 这些限制可能会影响本实验室练习。 我们正在努力解决此问题，但与此同时，执行以下步骤时可能会遇到一些错误；对此我们深表歉意。 有关 Microsoft 所做的更改的更多详细信息，以及原因 - 请参阅[负责任 AI 投资和面部识别防护措施](https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/)。
 
 ## <a name="clone-the-repository-for-this-course"></a>克隆本课程的存储库
 

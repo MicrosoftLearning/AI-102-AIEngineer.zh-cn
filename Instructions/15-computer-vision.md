@@ -2,12 +2,12 @@
 lab:
   title: 使用计算机视觉分析图像
   module: Module 8 - Getting Started with Computer Vision
-ms.openlocfilehash: 5b7f15550844e4bc5efbdb3b8ee00d71760f18c9
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: f2ee18ff682d53e9fd554749ed2b9cbaa9b03611
+ms.sourcegitcommit: 7191e53bc33cda92e710d957dde4478ee2496660
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "137819489"
+ms.lasthandoff: 07/09/2022
+ms.locfileid: "147041662"
 ---
 # <a name="analyze-images-with-computer-vision"></a>使用计算机视觉分析图像
 
@@ -34,8 +34,8 @@ ms.locfileid: "137819489"
     - 资源组：选择或创建一个资源组（如果你使用的是受限订阅，则可能无权创建新资源组，在此情况下，可使用一个已提供的资源组）
     - **区域**：选择任何可用区域
     - **名称**：输入唯一名称
-    - **定价层**：标准 S0
-3. 选中所需复选框并创建资源。
+    - 定价层：标准版 S0
+3. 选中所需的复选框并创建资源。
 4. 等待部署完成，然后查看部署详细信息。
 5. 部署资源后，转到该资源并查看其“密钥和终结点”页面。 你将在下一个过程中用到此页面中的终结点和其中一个密钥。
 
@@ -265,16 +265,15 @@ if (len(analysis.tags) > 0):
 
 ## <a name="get-image-categories"></a>获取图像类别
 
-计算机视觉服务可建议图像的类别，并且可标识每个类别中的知名地标或名人。
+计算机视觉服务可建议图像的类别，并且可标识每个类别中的知名地标。
 
-1. 在 AnalyzeImage 函数的注释“获取图像类别（包括名人和地标）”下，添加以下代码：
+1. 在 AnalyzeImage 函数的注释“获取图像类别”下，添加以下代码：
 
 **C#**
 
 ```C
-// Get image categories (including celebrities and landmarks)
+// Get image categories
 List<LandmarksModel> landmarks = new List<LandmarksModel> {};
-List<CelebritiesModel> celebrities = new List<CelebritiesModel> {};
 Console.WriteLine("Categories:");
 foreach (var category in analysis.Categories)
 {
@@ -292,18 +291,6 @@ foreach (var category in analysis.Categories)
             }
         }
     }
-
-    // Get celebrities in this category
-    if (category.Detail?.Celebrities != null)
-    {
-        foreach (CelebritiesModel celebrity in category.Detail.Celebrities)
-        {
-            if (!celebrities.Any(item => item.Name == celebrity.Name))
-            {
-                celebrities.Add(celebrity);
-            }
-        }
-    }
 }
 
 // If there were landmarks, list them
@@ -316,25 +303,15 @@ if (landmarks.Count > 0)
     }
 }
 
-// If there were celebrities, list them
-if (celebrities.Count > 0)
-{
-    Console.WriteLine("Celebrities:");
-    foreach(CelebritiesModel celebrity in celebrities)
-    {
-        Console.WriteLine($" -{celebrity.Name} (confidence: {celebrity.Confidence.ToString("P")})");
-    }
-}
 ```
 
 **Python**
 
 ```Python
-# Get image categories (including celebrities and landmarks)
+# Get image categories
 if (len(analysis.categories) > 0):
     print("Categories:")
     landmarks = []
-    celebrities = []
     for category in analysis.categories:
         # Print the category
         print(" -'{}' (confidence: {:.2f}%)".format(category.name, category.score * 100))
@@ -345,27 +322,15 @@ if (len(analysis.categories) > 0):
                     if landmark not in landmarks:
                         landmarks.append(landmark)
 
-            # Get celebrities in this category
-            if category.detail.celebrities:
-                for celebrity in category.detail.celebrities:
-                    if celebrity not in celebrities:
-                        celebrities.append(celebrity)
-
     # If there were landmarks, list them
     if len(landmarks) > 0:
         print("Landmarks:")
         for landmark in landmarks:
             print(" -'{}' (confidence: {:.2f}%)".format(landmark.name, landmark.confidence * 100))
 
-    # If there were celebrities, list them
-    if len(celebrities) > 0:
-        print("Celebrities:")
-        for celebrity in celebrities:
-            print(" -'{}' (confidence: {:.2f}%)".format(celebrity.name, celebrity.confidence * 100))
-
 ```
     
-2. 保存更改，并针对 images 文件夹中的每个图像文件运行一次程序，注意到除了图像描述文字和标记外，还会显示建议的类别以及任何已识别的地标或名人（尤其是图像 building.jpg 和 person.jpg 中的地标和名人）  。
+2. 保存更改，并针对 images 文件夹中的每个图像文件运行一次程序，注意到除了图像描述文字和标记外，还会显示建议的类别以及任何已识别的地标（尤其是 building.jpg 图像中的地标）。
 
 ## <a name="get-brands-in-an-image"></a>获取图像中的品牌
 
