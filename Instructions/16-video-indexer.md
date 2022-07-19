@@ -2,18 +2,18 @@
 lab:
   title: 使用视频分析器分析视频
   module: Module 8 - Getting Started with Computer Vision
-ms.openlocfilehash: ec23e53f363ed7c7df8fd598cfd1fc8807712f05
-ms.sourcegitcommit: 7191e53bc33cda92e710d957dde4478ee2496660
+ms.openlocfilehash: 50223cdfeb0a22933858d595d9329f8b8dcd873d
+ms.sourcegitcommit: e20d9099aaecdefa62a763dae24833b97e3d9f6d
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/09/2022
-ms.locfileid: "147041671"
+ms.lasthandoff: 07/11/2022
+ms.locfileid: "147052850"
 ---
 # <a name="analyze-video-with-video-analyzer"></a>使用视频分析器分析视频
 
 当今创建和使用的数据大都是视频格式数据。 媒体视频分析器是一项 AI 助力的服务，可用于索引视频并从中提取见解。
 
-> **注意**：从 2022 年 6 月 21 日开始，返回个人身份信息的认知服务的功能仅限于被授予[有限访问权限](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access)的客户。 此外，推断情绪状态的功能不再可用。 这些限制可能会影响本实验室练习。 我们正在努力解决此问题，但与此同时，执行以下步骤时可能会遇到一些错误；对此我们深表歉意。 有关 Microsoft 所做的更改的更多详细信息，以及原因 - 请参阅[负责任 AI 投资和面部识别防护措施](https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/)。
+> **注意**：从 2022 年 6 月 21 日开始，返回个人身份信息的认知服务的功能仅限于被授予[有限访问权限](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access)的客户。 如果不获得有限访问权限审批，则无法使用此实验室的视频分析器识别平民和名人。 有关 Microsoft 所做的更改的更多详细信息，以及原因 - 请参阅[负责任 AI 投资和面部识别防护措施](https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/)。
 
 ## <a name="clone-the-repository-for-this-course"></a>克隆本课程的存储库
 
@@ -80,34 +80,6 @@ ms.locfileid: "147041671"
 
 ![视频分析器对蜜蜂的搜索结果](./images/video-indexer-search.png)
 
-## <a name="edit-insights"></a>编辑见解
-
-可以使用视频分析器编辑找到的见解，并添加自定义信息以使视频更具意义。
-
-1. 将视频倒回到开头，并查看“见解”窗格顶部列出的人员 。 查看已识别的一些人，包括计算机科学家兼 Microsoft 技术研究员 Eric Horwitz。
-
-![视频分析器对知名人士的见解](./images/video-indexer-known-person.png)
-
-2. 选择 Eric Horwitz 的照片，然后查看其下方的信息，展开“显示传记”部分了解有关此人的信息。
-3. 注意视频中指示此人出现的位置。 你可以使用这些选项来观看视频的这些部分。
-4. 在视频播放器中，找到在 0:34 左右说话的人：
-
-![视频分析器对未知人员的见解](./images/video-indexer-unknown-person.png)
-
-5. 请注意，此人未被识别，并被分配了一个通用名称，例如未知 #1。 但是，视频中确实包含带有此人姓名的字幕，因此我们可以通过编辑此人的详细信息来扩充见解。
-6. 在门户的右上角，选择“编辑”图标 (&#x1F589;)。 然后将未知人员的姓名更改为 Natasha Crampton。
-
-![在视频分析器中编辑人员](./images/video-indexer-edit-name.png)
-
-7. 更改姓名后，请在“见解”窗格中搜索 Natasha。 搜索结果应包括一个人，并指出他们出现在视频中的哪个部分。
-8. 在门户的左上方，展开菜单 (&#8801;)，然后选择“模型自定义”页面。 然后在“人员”选项卡上，查看“默认”人员模型中是否包含一个人 。 视频分析器已将指定的人添加到人员模型中，以便以后在帐户中索引的任何视频中都可以识别这些人。
-
-![视频分析器中的默认人员模型](./images/video-indexer-custom-model.png)
-
-可以将人员图像添加到默认人员模型，也可以添加自己的新模型。 这样一来，你就可以定义带有脸部图像的人员的集合，以便视频分析器可以在视频中识别出他们。
-
-还请注意，还可为语言（例如，指定要让视频分析器识别的行业特定术语）和品牌（例如公司或产品名称）创建自定义模型。
-
 ## <a name="use-video-analyzer-widgets"></a>使用视频分析器小组件
 
 视频分析器门户是用于管理视频索引项目的有用界面。 但是，有时你可能想要将视频及其见解提供给无法访问视频分析器帐户的人员。 为此，视频分析器提供了可嵌入到网页中的小组件。
@@ -155,5 +127,7 @@ ms.locfileid: "147041671"
 6. 查看来自 REST 服务的 JSON 响应，其中应包含之前索引的“负责任的 AI”视频的详细信息。
 
 ## <a name="more-information"></a>详细信息
+
+平民和名人的识别仍然可用，但根据[负责任 AI 标准](https://aka.ms/aah91ff)，这些功能受限于有限访问策略。 这些功能包括面部识别和名人识别。 若要了解详细信息并申请访问权限，请参阅[认知服务的有限访问](https://docs.microsoft.com/en-us/azure/cognitive-services/cognitive-services-limited-access)。
 
 有关视频分析器的详细信息，请参阅[视频分析器文档](https://docs.microsoft.com/azure/azure-video-analyzer/video-analyzer-for-media-docs/)。
