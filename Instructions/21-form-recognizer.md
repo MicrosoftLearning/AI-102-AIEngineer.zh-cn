@@ -2,12 +2,12 @@
 lab:
   title: 从表单中提取数据
   module: Module 11 - Reading Text in Images and Documents
-ms.openlocfilehash: 540fdc49b9efcf335d43cdd7a6db405c255cd058
-ms.sourcegitcommit: de1f38bbe53ec209b42cd89516813773e2f3479b
+ms.openlocfilehash: 96d47db5b1db0b4d87b5c7acd267493487584c41
+ms.sourcegitcommit: 94c8705b76b644d0fb0cd6df1b78ff63d5869109
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/17/2022
-ms.locfileid: "145040700"
+ms.lasthandoff: 07/26/2022
+ms.locfileid: "147406482"
 ---
 # <a name="extract-data-from-forms"></a>从表单中提取数据 
 
@@ -34,7 +34,7 @@ ms.locfileid: "145040700"
 
 2. 选择“&#65291;创建资源”按钮，搜索“表单识别器”，并使用以下设置创建“表单识别器”资源：
     - **订阅**：Azure 订阅
-    - 资源组：选择或创建一个资源组（如果使用受限制的订阅，你可能无权创建新的资源组 - 请使用提供的资源组）
+    - 资源组：选择或创建一个资源组（如果你使用的是受限订阅，则可能无权创建新资源组，在此情况下，可使用一个已提供的资源组）
     - **区域**：选择任何可用区域
     - **名称**：输入唯一名称
     - **定价层**：F0
@@ -201,7 +201,7 @@ pip install azure-ai-formrecognizer==3.0.0
 **C#**
 
 ```
-Install-Package Tabulate.NET -Version 1.0.5
+dotnet add package Tabulate.NET --version 1.0.5
 ```
 
 **Python**
